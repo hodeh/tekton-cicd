@@ -1,3 +1,5 @@
 tkn pipeline start build-and-deploy     -w name=shared-workspace,volumeClaimTemplateFile=./volume-claim-template.yaml     -p deployment-name=pipelines-vote-api     -p git-url=https://salsa-git-openshift-operators.apps.salsa.lab/user1/pipelines-vote-api.git     -p IMAGE='image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/pipelines-vote-api'     --use-param-defaults
 
 oc adm policy add-cluster-role-to-user cluster-admin -z openshift-gitops-argocd-application-controller -n openshift-gitops
+
+oc create secret docker-registry quay-secret --docker-server=quay.io --docker-username=<QUAY_USERNAME> --docker-password=<ENCRYPTED_PASSWORD>
