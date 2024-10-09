@@ -25,6 +25,9 @@ spec:
   - default: openjdk-11-ubi8
     name: VERSION
     type: string
+#  - default: "http://your-maven-mirror"
+#    name: MAVEN_MIRROR_URL
+#    type: string    
   tasks:
   - name: fetch-repository
     params:
