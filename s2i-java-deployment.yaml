@@ -2,25 +2,13 @@ apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   annotations:
-    operator.tekton.dev/last-applied-hash: abf44cc245e3be1b319f7d7153cc000b63f4f7b46c9f9663477f19f59a35e757
     operator.tekton.dev/preserve-namespace: "true"
-  creationTimestamp: "2024-10-07T21:17:10Z"
-  generation: 1
   labels:
     operator.tekton.dev/operand-name: openshift-pipelines-addons
     pipeline.openshift.io/runtime: java
     pipeline.openshift.io/type: kubernetes
   name: s2i-java-deployment
   namespace: openshift
-  ownerReferences:
-  - apiVersion: operator.tekton.dev/v1alpha1
-    blockOwnerDeletion: true
-    controller: true
-    kind: TektonInstallerSet
-    name: addon-custom-pipelinestemplate-dg2qr
-    uid: 66e0d2ee-9c16-426b-9b72-3318c840a638
-  resourceVersion: "271361"
-  uid: d84474f5-2ecc-4eb1-a7e1-c157c53f6631
 spec:
   params:
   - name: APP_NAME
@@ -45,7 +33,6 @@ spec:
     - name: revision
       value: $(params.GIT_REVISION)
     - name: subdirectory
-      value: ""
     - name: deleteExisting
       value: "true"
     taskRef:
