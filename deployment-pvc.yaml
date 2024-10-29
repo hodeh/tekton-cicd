@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubi-file-writer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubi-file-writer
+  template:
+    metadata:
+      labels:
+        app: ubi-file-writer
+    spec:
+      containers:
+      - name: file-writer
+        image: registry.redhat.io/ubi9/python-39:latest
+        command: ["sh", "-c"]
+        args:
+          - >
+            while true; do
+              echo "$(date) - Writing to file..." >> /mnt/data/output.log;
+              sleep 10;
+            done;
+        volumeMounts:
+        - name: file-storage
+          mountPath: /mnt/data
+      volumes:
+      - name: file-storage
+        persistentVolumeClaim:
+          claimName: file-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: file-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
